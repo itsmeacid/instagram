@@ -52,3 +52,12 @@ app.post("/save", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.get("/data", (req, res) => {
+    const filePath = path.join(__dirname, "user_data.xlsx");
+    if (fs.existsSync(filePath)) {
+        res.download(filePath); // Kirim file ke browser
+    } else {
+        res.status(404).send("No data found");
+    }
+});
